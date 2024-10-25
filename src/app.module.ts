@@ -4,6 +4,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import joi from 'joi';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { UserModule } from './modules/user/user.module';
+import { AnnouncementsModule } from './modules/announcements/announcements.module';
+import { AttendanceModule } from './modules/attendance/attendance.module';
+import { AttendanceManagerModule } from './modules/attendance-manager/attendance-manager.module';
+import { CateringManagerModule } from './modules/catering-manager/catering-manager.module';
+import { ComplaintsModule } from './modules/complaints/complaints.module';
+import { FloorManagerModule } from './modules/floor-manager/floor-manager.module';
+import { ManagedFloorsModule } from './modules/managed-floors/managed-floors.module';
+import { ManagedMealsModule } from './modules/managed-meals/managed-meals.module';
+import { NotificationModule } from './modules/notification/notification.module';
+import { StudentModule } from './modules/student/student.module';
 
 @Module({
   imports: [
@@ -29,6 +40,17 @@ import { AppService } from './app.service';
         synchronize: true,
       }),
     }),
+    UserModule,
+    AnnouncementsModule,
+    AttendanceModule,
+    AttendanceManagerModule,
+    CateringManagerModule,
+    ComplaintsModule,
+    FloorManagerModule,
+    ManagedFloorsModule,
+    ManagedMealsModule,
+    NotificationModule,
+    StudentModule,
   ],
   controllers: [AppController],
   providers: [AppService],
