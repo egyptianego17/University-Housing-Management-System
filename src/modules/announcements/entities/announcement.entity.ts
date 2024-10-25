@@ -1,1 +1,30 @@
-export class Announcement {}
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { User } from 'src/modules/user/entities/user.entity';
+
+@Entity()
+export class Announcement {
+  @PrimaryGeneratedColumn('increment', { type: 'bigint' })
+  id!: number;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'managerId' })
+  manager!: User;
+
+  @Column({ type: 'tinyint' })
+  floor!: number;
+
+  @Column({ type: 'varchar', length: 255 })
+  title!: string;
+
+  @Column({ type: 'text' })
+  body!: string;
+
+  @Column({ type: 'datetime' })
+  date!: Date;
+}
