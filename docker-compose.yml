@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  university-housing-management-system:
+    build: .
+    container_name: university-housing-management-system
+    ports:
+      - '${APP_PORT}:${APP_PORT}'
+    env_file:
+      - .env
+    depends_on:
+      - mysql-db
+    volumes:
+      - .:/app
+
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql-db
+    env_file:
+      - .env
+    ports:
+      - '${DB_PORT}:${DB_PORT}'
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
