@@ -1,1 +1,41 @@
-export class Complaint {}
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { Student } from 'src/modules/student/entities/student.entity';
+import { FloorManager } from 'src/modules/floor-manager/entities/floor-manager.entity';
+
+@Entity()
+export class Complaint {
+  @PrimaryGeneratedColumn('increment', { type: 'bigint' })
+  id!: number;
+
+  @ManyToOne(() => Student, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'studentId' })
+  student!: Student;
+
+  @ManyToOne(() => FloorManager, { nullable: true })
+  @JoinColumn({ name: 'managerId' })
+  manager?: FloorManager;
+
+  @Column({ type: 'datetime' })
+  issueDate!: Date;
+
+  @Column({ type: 'varchar', length: 255 })
+  title!: string;
+
+  @Column({ type: 'text' })
+  body!: string;
+
+  @Column({ type: 'text', nullable: true })
+  response?: string;
+
+  @Column({ type: 'datetime' })
+  responseDate!: Date;
+
+  @Column({ type: 'boolean', default: false })
+  solved!: boolean;
+}

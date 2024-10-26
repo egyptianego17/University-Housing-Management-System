@@ -1,18 +1,12 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-
-import { CreateSettingsHandler } from './commands/create-settings.command';
-import { UserController } from './user.controller';
-import { UserEntity } from './user.entity';
 import { UserService } from './user.service';
-import { UserSettingsEntity } from './user-settings.entity';
-
-const handlers = [CreateSettingsHandler];
+import { UserController } from './user.controller';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './entities/user.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserEntity, UserSettingsEntity])],
+  imports: [TypeOrmModule.forFeature([User])],
   controllers: [UserController],
-  exports: [UserService],
-  providers: [UserService, ...handlers],
+  providers: [UserService],
 })
 export class UserModule {}

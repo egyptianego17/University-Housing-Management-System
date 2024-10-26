@@ -1,32 +1,23 @@
-FROM node:lts AS dist
-COPY package.json yarn.lock ./
+# Use the official Node.js image as the base image
+FROM node:18
 
-RUN yarn install
+# Set working directory
+WORKDIR /app
 
-COPY . ./
+# Copy package.json and package-lock.json
+COPY package*.json ./
 
-RUN yarn build:prod
+# Install dependencies
+RUN npm install
 
-FROM node:lts AS node_modules
-COPY package.json yarn.lock ./
+# Copy the rest of the application code
+COPY . .
 
-RUN yarn install --prod
+# Build the NestJS application
+RUN npm run build
 
-FROM node:lts
+# Expose the application port
+EXPOSE 3000
 
-ARG PORT=3000
-
-ENV NODE_ENV=production
-
-RUN mkdir -p /usr/src/app
-
-WORKDIR /usr/src/app
-
-COPY --from=dist dist /usr/src/app/dist
-COPY --from=node_modules node_modules /usr/src/app/node_modules
-
-COPY . /usr/src/app
-
-EXPOSE $PORT
-
-CMD [ "yarn", "start:prod" ]
+# Start the NestJS application
+CMD ["npm", "run", "start:dev"]

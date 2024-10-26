@@ -1,7 +1,6 @@
-.git
-dist
 node_modules
-db-data
-.vuepress
-.vscode
-docs
+dist
+.git
+.gitignore
+.eslint
+.prettierrc
