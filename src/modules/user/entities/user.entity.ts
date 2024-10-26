@@ -38,13 +38,13 @@ export class User {
   mobileNumber!: string;
 
   @Column({ type: 'bigint' })
-  nationalD!: number;
+  nationalId!: number;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
-  nationaldImageUrl?: string;
+  nationalIdImageUrl?: string;
 
   @Column({ type: 'enum', enum: ['MALE', 'FEMALE', 'HYBRID'], nullable: true })
-  section?: string;
+  section!: string;
 
   @OneToOne(() => Student)
   @JoinColumn({ name: 'student_fk', referencedColumnName: 'studentId' })
