@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import * as joi from 'joi';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './modules/user/user.module';
@@ -26,55 +25,17 @@ import { ManagedMeal } from './modules/managed-meals/entities/managed-meal.entit
 import { Notification } from './modules/notification/entities/notification.entity';
 import { Student } from './modules/student/entities/student.entity';
 import { User } from './modules/user/entities/user.entity';
+import { typeOrmConfig } from './config/typeorm.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true,
-      validationSchema: joi.object({
-        DB_DATABASE: joi.string().required(),
-        DB_USER: joi.string().required(),
-        DB_PASSWORD: joi.string().required(),
-        DB_PORT: joi.number().default(3306),
-      }),
+      isGlobal: true, 
+      envFilePath: '.env',
     }),
     TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (envConfigService: ConfigService) => ({
-        type: 'mysql',
-        entities: [
-          Announcement,
-          Attendance,
-          AttendanceManager,
-          CateringManager,
-          Complaint,
-          FloorManager,
-          ManagedFloor,
-          ManagedMeal,
-          Notification,
-          Student,
-          User,
-        ],
-        database: envConfigService.get<string>('DB_DATABASE'),
-        host: envConfigService.get<string>('DB_HOST'),
-        username: envConfigService.get<string>('DB_USER'),
-        password: envConfigService.get<string>('DB_PASSWORD'),
-        port: envConfigService.get<number>('DB_PORT'),
-        synchronize: true,
-      }),
-    }),
-    UserModule,
-    AnnouncementsModule,
-    AttendanceModule,
-    AttendanceManagerModule,
-    CateringManagerModule,
-    ComplaintsModule,
-    FloorManagerModule,
-    ManagedFloorsModule,
-    ManagedMealsModule,
-    NotificationModule,
-    StudentModule,
+      useClass: typeOrmConfig,
+    }),  
   ],
   controllers: [AppController],
   providers: [AppService],
