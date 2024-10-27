@@ -1,9 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { FloorManagerService } from './floor-manager.service';
 import { CreateFloorManagerDto } from './dto/create-floor-manager.dto';
 import { UpdateFloorManagerDto } from './dto/update-floor-manager.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('floor-manager')
+@ApiTags('FloorManager')
 export class FloorManagerController {
   constructor(private readonly floorManagerService: FloorManagerService) {}
 
@@ -23,7 +33,10 @@ export class FloorManagerController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFloorManagerDto: UpdateFloorManagerDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateFloorManagerDto: UpdateFloorManagerDto,
+  ) {
     return this.floorManagerService.update(+id, updateFloorManagerDto);
   }
 

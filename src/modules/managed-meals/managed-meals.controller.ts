@@ -1,9 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ManagedMealsService } from './managed-meals.service';
 import { CreateManagedMealDto } from './dto/create-managed-meal.dto';
 import { UpdateManagedMealDto } from './dto/update-managed-meal.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('managed-meals')
+@ApiTags('ManagedMeals')
 export class ManagedMealsController {
   constructor(private readonly managedMealsService: ManagedMealsService) {}
 
@@ -23,7 +33,10 @@ export class ManagedMealsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateManagedMealDto: UpdateManagedMealDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateManagedMealDto: UpdateManagedMealDto,
+  ) {
     return this.managedMealsService.update(+id, updateManagedMealDto);
   }
 
