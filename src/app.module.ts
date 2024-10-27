@@ -30,12 +30,14 @@ import { typeOrmConfig } from './config/typeorm.config';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true, 
+      isGlobal: true,
       envFilePath: '.env',
     }),
     TypeOrmModule.forRootAsync({
       useClass: typeOrmConfig,
-    }),  
+    }),
+    AnnouncementsModule,
+    AttendanceModule,
   ],
   controllers: [AppController],
   providers: [AppService],
