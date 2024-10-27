@@ -14,7 +14,7 @@ export class Announcement {
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'managerId' })
-  manager!: User;
+  managerId!: number;
 
   @Column({ type: 'tinyint' })
   floor!: number;
