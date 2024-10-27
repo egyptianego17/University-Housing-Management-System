@@ -27,21 +27,30 @@ export class AttendanceController {
     return this.attendanceService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.attendanceService.findOne(+id);
+  @Get(':userId/:date') // date must be formatted as: 'yyyy-mm-dd'
+  findOne(@Param('userId') userId: string, @Param('date') date: string) {
+    const parsedDate = new Date(date);
+    return this.attendanceService.findOne(parseInt(userId), parsedDate);
   }
 
-  @Patch(':id')
+  @Patch(':userId/:date')
   update(
-    @Param('id') id: string,
+    @Param('userId') userId: string,
+    @Param('date') date: string,
     @Body() updateAttendanceDto: UpdateAttendanceDto,
   ) {
-    return this.attendanceService.update(+id, updateAttendanceDto);
+    const parsedDate = new Date(date);
+
+    return this.attendanceService.update(
+      parseInt(userId),
+      parsedDate,
+      updateAttendanceDto,
+    );
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.attendanceService.remove(+id);
+  @Delete(':userId/:date')
+  remove(@Param('userId') userId: string, @Param('date') date: string) {
+    const parsedDate = new Date(date);
+    return this.attendanceService.remove(parseInt(userId), parsedDate);
   }
 }
