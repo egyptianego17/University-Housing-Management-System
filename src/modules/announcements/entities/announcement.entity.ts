@@ -4,6 +4,7 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  CreateDateColumn,
 } from 'typeorm';
 import { User } from 'src/modules/user/entities/user.entity';
 
@@ -25,6 +26,8 @@ export class Announcement {
   @Column({ type: 'text' })
   body!: string;
 
-  @Column({ type: 'datetime' })
-  date!: Date;
+  // @Column({ type: 'datetime' })
+  // date!: Date;
+  @CreateDateColumn({ type: 'timestamp' })
+  date: Date;
 }
