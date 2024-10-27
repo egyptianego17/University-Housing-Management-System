@@ -1,4 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Announcement } from './entities/announcement.entity';
@@ -12,12 +18,28 @@ export class AnnouncementsService {
   ) {}
 
   async create(createAnnouncementDto: CreateAnnouncementDto) {
-    const announcement = this.repo.create(createAnnouncementDto);
-    return this.repo.save(announcement);
+    try {
+      const announcement = this.repo.create(createAnnouncementDto);
+      return await this.repo.save(announcement);
+    } catch (err) {
+      if (err.code === 'ER_DUP_ENTRY') {
+        throw new BadRequestException('Announcement already exists');
+      }
+    }
   }
 
   async findAll() {
-    return this.repo.find();
+    const res = await this.repo.find();
+    if (!res.length) {
+      throw new HttpException(
+        {
+          status: HttpStatus.NO_CONTENT,
+          error: 'No attendance records found',
+        },
+        HttpStatus.NO_CONTENT,
+      );
+    }
+    return res;
   }
 
   async findOne(id: number) {
