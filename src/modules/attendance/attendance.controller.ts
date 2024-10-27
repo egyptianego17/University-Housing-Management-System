@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { AttendanceService } from './attendance.service';
 import { CreateAttendanceDto } from './dto/create-attendance.dto';
 import { UpdateAttendanceDto } from './dto/update-attendance.dto';
@@ -17,18 +26,30 @@ export class AttendanceController {
     return this.attendanceService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.attendanceService.findOne(+id);
+  @Get(':userId/:date') // date must be formatted as: 'yyyy-mm-dd'
+  findOne(@Param('userId') userId: string, @Param('date') date: string) {
+    const parsedDate = new Date(date);
+    return this.attendanceService.findOne(parseInt(userId), parsedDate);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAttendanceDto: UpdateAttendanceDto) {
-    return this.attendanceService.update(+id, updateAttendanceDto);
+  @Patch(':userId/:date')
+  update(
+    @Param('userId') userId: string,
+    @Param('date') date: string,
+    @Body() updateAttendanceDto: UpdateAttendanceDto,
+  ) {
+    const parsedDate = new Date(date);
+
+    return this.attendanceService.update(
+      parseInt(userId),
+      parsedDate,
+      updateAttendanceDto,
+    );
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.attendanceService.remove(+id);
+  @Delete(':userId/:date')
+  remove(@Param('userId') userId: string, @Param('date') date: string) {
+    const parsedDate = new Date(date);
+    return this.attendanceService.remove(parseInt(userId), parsedDate);
   }
 }

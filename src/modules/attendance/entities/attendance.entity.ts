@@ -1,11 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn } from 'typeorm';
 
 @Entity()
 export class Attendance {
-  @PrimaryGeneratedColumn('increment', { type: 'bigint' })
+  @PrimaryColumn({ type: 'bigint' })
   userId!: number;
 
-  @Column({ type: 'date' })
+  @PrimaryColumn({ type: 'date' })
   date!: Date;
 
   @Column({ type: 'boolean', nullable: true })
