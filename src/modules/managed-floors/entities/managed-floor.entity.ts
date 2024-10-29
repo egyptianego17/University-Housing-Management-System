@@ -5,8 +5,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { FloorManager } from 'src/modules/floor-manager/entities/floor-manager.entity';
-
+import { FloorManager } from '../../floor-manager/entities/floor-manager.entity';
 @Entity()
 export class ManagedFloor {
   @PrimaryGeneratedColumn('increment', { type: 'bigint' })

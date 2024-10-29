@@ -1,5 +1,5 @@
-import { IsString, IsNotEmpty, IsEmail, IsStrongPassword, IsEnum, Length, Matches, IsDate, IsMobilePhone, IsNumber, IsIdentityCard, IsOptional} from 'class-validator';
-import { Transform } from 'class-transformer';
+import { IsString, IsEmail, IsStrongPassword, IsEnum, Length, IsDate, IsMobilePhone,IsOptional, IsNumber} from 'class-validator';
+import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateUserDto {  
@@ -18,33 +18,26 @@ export class CreateUserDto {
     @Length(3, 25)
     lastName: string;
 
-    @ApiProperty({ description: 'The username of the user' })
-    @IsString()
-    @Length(3, 25)
-    @Matches(/^\S+$/, { message: 'Username must not contain spaces and must be a single word.' })
-    @Transform(({ value }) => value.trim()) 
-    username: string;
-
     @IsEnum(['MALE','FEMALE'])
-    gender: number;
+    gender: string;
 
     @IsEmail()
     email: string;
 
     @IsDate()
+    @Type(() => Date)
     birthDate!: Date;
 
     @IsMobilePhone('ar-EG')
     mobileNumber!: string;
 
-    @IsNumber()
-    @IsIdentityCard()
+    @IsString()
     @Length(14)
-    nationalId: number;
+    nationalId: string;
 
     @IsOptional()
     nationalIdImageUrl: string;
-  
+
     @IsEnum(['MALE','FEMALE','HYBRID'])
     section: string;
 }

@@ -6,9 +6,6 @@ export class FloorManager {
   @PrimaryGeneratedColumn('increment', { type: 'bigint' })
   managerId!: number;
 
-  @Column({ type: 'tinyint' })
-  floor!: number;
-
   @OneToMany(() => ManagedFloor, (managedFloors) => managedFloors.floorManager)
   managedFloors!: ManagedFloor[];
 }

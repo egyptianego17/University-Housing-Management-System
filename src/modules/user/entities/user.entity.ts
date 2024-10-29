@@ -5,46 +5,58 @@ import {
   OneToOne,
   JoinColumn,
 } from 'typeorm';
-import { Student } from 'src/modules/student/entities/student.entity';
-import { CateringManager } from 'src/modules/catering-manager/entities/catering-manager.entity';
-import { Attendance } from 'src/modules/attendance/entities/attendance.entity';
-import { AttendanceManager } from 'src/modules/attendance-manager/entities/attendance-manager.entity';
-import { FloorManager } from 'src/modules/floor-manager/entities/floor-manager.entity';
+import { Student } from '../../student/entities/student.entity';
+import { CateringManager } from '../../catering-manager/entities/catering-manager.entity';
+import { Attendance } from './../../attendance/entities/attendance.entity';
+import { AttendanceManager } from '../../attendance-manager/entities/attendance-manager.entity';
+import { FloorManager } from '../../floor-manager/entities/floor-manager.entity';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('increment', { type: 'bigint' })
-  id!: number;
+  id: number;
 
   @Column({ type: 'varchar', length: 255 })
   password!: string;
-
+  
   @Column({ type: 'varchar', length: 255 })
-  name!: string;
+  salt!: string;
+  
+  @Column({ type: 'varchar', length: 25 })
+  firstName!: string;
 
-  @Column({ type: 'varchar', length: 255, unique: true })
-  username!: string;
+  @Column({ type: 'varchar', length: 25 })
+  middleName!: string;
 
-  @Column({ type: 'tinyint' })
-  gender!: number;
+  @Column({ type: 'varchar', length: 25 })
+  lastName!: string;
 
   @Column({ type: 'varchar', length: 255, unique: true })
   email!: string;
 
+  @Column({ type: 'enum', enum: ['MALE', 'FEMALE', 'HYBRID']})
+  gender!: string;
+
   @Column({ type: 'date' })
   birthDate!: Date;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 15 }) 
   mobileNumber!: string;
 
-  @Column({ type: 'bigint' })
-  nationalId!: number;
+  @Column({ type: 'varchar', length: 14 })
+  nationalId!: string;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
   nationalIdImageUrl?: string;
 
   @Column({ type: 'enum', enum: ['MALE', 'FEMALE', 'HYBRID'], nullable: true })
   section!: string;
+
+  @Column({type: 'boolean', default: false})
+  isActivated!: boolean;
+
+  @Column({type: 'enum', enum: ['STUDENT', 'CATERING_MANAGER', 'ATTENDANCE_MANAGER', 'FLOOR_MANAGER', 'ADMIN']})
+  role!: string;
 
   @OneToOne(() => Student)
   @JoinColumn({ name: 'student_fk', referencedColumnName: 'studentId' })

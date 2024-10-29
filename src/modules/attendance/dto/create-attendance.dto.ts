@@ -1,7 +1,7 @@
 import { Type } from 'class-transformer';
 import { IsBoolean, IsDate, IsNumber } from 'class-validator';
 
-export class CreateAttendanceDto {
+export class CreateAttendanceManagerDto {
   @IsNumber()
   userId: number;
 

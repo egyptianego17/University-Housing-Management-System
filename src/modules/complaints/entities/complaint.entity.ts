@@ -5,8 +5,8 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Student } from 'src/modules/student/entities/student.entity';
-import { FloorManager } from 'src/modules/floor-manager/entities/floor-manager.entity';
+import { Student } from '../../student/entities/student.entity';
+import { FloorManager } from '../../floor-manager/entities/floor-manager.entity';
 
 @Entity()
 export class Complaint {

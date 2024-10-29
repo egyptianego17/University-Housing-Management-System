@@ -5,7 +5,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { CateringManager } from 'src/modules/catering-manager/entities/catering-manager.entity';
+import { CateringManager } from '../../catering-manager/entities/catering-manager.entity';
 
 @Entity()
 export class ManagedMeal {

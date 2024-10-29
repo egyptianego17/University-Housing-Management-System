@@ -6,7 +6,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { User } from 'src/modules/user/entities/user.entity';
-import { Student } from 'src/modules/student/entities/student.entity';
+import { Student } from '../../student/entities/student.entity';
 
 @Entity()
 export class Notification {

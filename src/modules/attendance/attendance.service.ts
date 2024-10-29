@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateAttendanceDto } from './dto/create-attendance.dto';
+import { CreateAttendanceManagerDto } from './dto/create-attendance.dto';
 import { UpdateAttendanceDto } from './dto/update-attendance.dto';
 import { Attendance } from './entities/attendance.entity';
 
@@ -17,7 +17,7 @@ export class AttendanceService {
     @InjectRepository(Attendance) private repo: Repository<Attendance>,
   ) {}
 
-  async create(createAttendanceDto: CreateAttendanceDto) {
+  async create(createAttendanceDto: CreateAttendanceManagerDto) {
     try {
       createAttendanceDto.date = new Date(createAttendanceDto.date);
       const attendance = this.repo.create(createAttendanceDto);

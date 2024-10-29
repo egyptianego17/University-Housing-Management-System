@@ -8,7 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { AttendanceService } from './attendance.service';
-import { CreateAttendanceDto } from './dto/create-attendance.dto';
+import { CreateAttendanceManagerDto } from './dto/create-attendance.dto';
 import { UpdateAttendanceDto } from './dto/update-attendance.dto';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -18,7 +18,7 @@ export class AttendanceController {
   constructor(private readonly attendanceService: AttendanceService) {}
 
   @Post()
-  create(@Body() createAttendanceDto: CreateAttendanceDto) {
+  create(@Body() createAttendanceDto: CreateAttendanceManagerDto) {
     return this.attendanceService.create(createAttendanceDto);
   }
 
