@@ -34,7 +34,7 @@ export class AnnouncementsService {
       throw new HttpException(
         {
           status: HttpStatus.NO_CONTENT,
-          error: 'No attendance records found',
+          error: 'No announcements found',
         },
         HttpStatus.NO_CONTENT,
       );
