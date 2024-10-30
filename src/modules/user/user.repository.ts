@@ -5,6 +5,8 @@ import { Student } from '../student/entities/student.entity';
 import { CreateUserAndStudentDto } from './dto/create-student-dto';
 import { AuthCredentialsDto } from '../auth/dto/auth-credentials.dto';
 import { HashUtil } from '../../utils/hash.util'
+import { CreateUserDto } from './dto/create-user.dto';
+import { CreateStudentDto } from '../student/dto/create-student.dto';
 
 @Injectable()
 export class UserRepository extends Repository<User> {
@@ -14,7 +16,7 @@ export class UserRepository extends Repository<User> {
     super(User, dataSource.createEntityManager());
   }
 
-  async studentSignUp(createUserAndStudentDto: CreateUserAndStudentDto): Promise<string> {
+  async studentSignUp(createUserAndStudentDto: CreateStudentDto & CreateUserDto): Promise<string> {
     const queryRunner = this.dataSource.createQueryRunner();
 
     await queryRunner.connect();
@@ -122,7 +124,7 @@ export class UserRepository extends Repository<User> {
     await this.remove(user);
   }
   
-  async login(authCredentialsDto: AuthCredentialsDto): Promise<void> {
+  async login(authCredentialsDto: AuthCredentialsDto): Promise<User> {
     const { email, password } = authCredentialsDto;
     const user = await this.findOneByEmail(email);
     if (!user) {
@@ -130,10 +132,12 @@ export class UserRepository extends Repository<User> {
     }
     const isPasswordValid = await HashUtil.comparePassword(password, user.password, user.salt);
     if (isPasswordValid) {
+      console.log(user);
       console.log('Login successful');
     }
     else {
       throw new NotFoundException(`Invalid credentials.`);
     }
+    return user;
   } 
 }

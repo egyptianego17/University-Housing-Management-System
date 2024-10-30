@@ -27,21 +27,5 @@ export class ManagedFloorsController {
     return this.managedFloorsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.managedFloorsService.findOne(+id);
-  }
 
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateManagedFloorDto: UpdateManagedFloorDto,
-  ) {
-    return this.managedFloorsService.update(+id, updateManagedFloorDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.managedFloorsService.remove(+id);
-  }
 }
