@@ -1,26 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCateringManagerDto } from './dto/create-catering-manager.dto';
-import { UpdateCateringManagerDto } from './dto/update-catering-manager.dto';
-
+import { SignUpResponse } from '../auth/interfaces/signup-response.interface';
 @Injectable()
 export class CateringManagerService {
-  create(createCateringManagerDto: CreateCateringManagerDto) {
-    return 'This action adds a new cateringManager';
+
+  async addCateringManager (createStudent: CreateCateringManagerDto): Promise<SignUpResponse> {
+    /* To DO */
+    return { message: 'To DO', success: false };
   }
 
-  findAll() {
-    return `This action returns all cateringManager`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} cateringManager`;
-  }
-
-  update(id: number, updateCateringManagerDto: UpdateCateringManagerDto) {
-    return `This action updates a #${id} cateringManager`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} cateringManager`;
-  }
 }

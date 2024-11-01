@@ -7,6 +7,10 @@ import { CreateUserDto } from '../user/dto/create-user.dto';
 import { CreateStudentDto } from '../student/dto/create-student.dto';
 import { JwtService } from '@nestjs/jwt';
 import { EncryptionUtil } from '../../utils/encryption.util';
+import { SignInResponse } from './interfaces/signin-response.interface';
+import { SignUpResponse } from './interfaces/signup-response.interface';
+import { CreateAttendanceAndFloorManagerDto } from '../attendance-and-floor-manager/dto/create-attendance-and-floor-manager.dto';
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -15,15 +19,32 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async studentSignUp(createStudent: CreateUserDto & CreateStudentDto): Promise<string> {
-    return await this.userRepository.studentSignUp(createStudent);
+  async studentSignUp(createStudent: CreateStudentDto): Promise<SignUpResponse> {
+    try {
+      const message = await this.userRepository.studentSignUp(createStudent);
+      return { message, success: true };
+    } catch (error) {
+      return { message: error.message || 'Signup failed', success: false };
+    }
   }
 
-  async login(authCredentialsDto: AuthCredentialsDto): Promise<string> {
-    const user = await this.userRepository.login(authCredentialsDto);
-    const payload = await EncryptionUtil.encryptPayload(user.email, user.role);
-    const accessToken = this.jwtService.sign({ encryptedData: payload });
+  async addAttendanceAndFloorManager (createStudent: CreateAttendanceAndFloorManagerDto): Promise<SignUpResponse> {
+    /* To DO */
+    return { message: 'To DO', success: false };
+  }
 
-    return accessToken;
+  async addCateringManager (createStudent: CreateStudentDto): Promise<SignUpResponse> {
+    /* To DO */
+    return { message: 'To DO', success: false };
+  }
+
+  async login(authCredentialsDto: AuthCredentialsDto): Promise<SignInResponse> {
+    try {
+      const user = await this.userRepository.login(authCredentialsDto);
+      const payload = await EncryptionUtil.encryptPayload(user.email, user.role);
+      const accessToken = this.jwtService.sign({ encryptedData: payload });
+    } catch (error) {
+      return { message: error.message || 'Login failed', success: false };
+    }
   } 
 }

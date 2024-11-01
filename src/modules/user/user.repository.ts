@@ -18,7 +18,7 @@ export class UserRepository extends Repository<User> {
     super(User, dataSource.createEntityManager());
   }
 
-  async studentSignUp(createUserAndStudentDto: CreateStudentDto & CreateUserDto): Promise<string> {
+  async studentSignUp(createUserAndStudentDto: CreateStudentDto): Promise<string> {
     this.logger.log(`Starting student sign-up process for email: ${createUserAndStudentDto.email}`);
     const queryRunner = this.dataSource.createQueryRunner();
 

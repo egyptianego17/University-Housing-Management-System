@@ -4,15 +4,17 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  PrimaryColumn,
 } from 'typeorm';
 import { CateringManager } from '../../catering-manager/entities/catering-manager.entity';
+import { ColumnMetadata } from 'typeorm/metadata/ColumnMetadata';
 
 @Entity()
 export class ManagedMeal {
-  @PrimaryGeneratedColumn('increment', { type: 'bigint' })
+  @PrimaryColumn({ type: 'bigint' })
   managerId!: number;
 
-  @Column({ type: 'enum', enum: ['BREAKFAST', 'LUNCH', 'DINNER'] })
+  @PrimaryColumn({ type: 'enum', enum: ['BREAKFAST', 'LUNCH', 'DINNER'] })
   meal!: string;
 
   @Column({ type: 'date' })
@@ -25,3 +27,4 @@ export class ManagedMeal {
   @JoinColumn({ name: 'managerId' })
   cateringManager!: CateringManager;
 }
+
