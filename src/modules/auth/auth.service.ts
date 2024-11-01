@@ -9,7 +9,6 @@ import { JwtService } from '@nestjs/jwt';
 import { EncryptionUtil } from '../../utils/encryption.util';
 import { SignInResponse } from './interfaces/signin-response.interface';
 import { SignUpResponse } from './interfaces/signup-response.interface';
-import { CreateAttendanceAndFloorManagerDto } from '../attendance-and-floor-manager/dto/create-attendance-and-floor-manager.dto';
 
 @Injectable()
 export class AuthService {
@@ -26,16 +25,6 @@ export class AuthService {
     } catch (error) {
       return { message: error.message || 'Signup failed', success: false };
     }
-  }
-
-  async addAttendanceAndFloorManager (createStudent: CreateAttendanceAndFloorManagerDto): Promise<SignUpResponse> {
-    /* To DO */
-    return { message: 'To DO', success: false };
-  }
-
-  async addCateringManager (createStudent: CreateStudentDto): Promise<SignUpResponse> {
-    /* To DO */
-    return { message: 'To DO', success: false };
   }
 
   async login(authCredentialsDto: AuthCredentialsDto): Promise<SignInResponse> {
