@@ -29,7 +29,7 @@ export class Student {
     @Column({ type: 'varchar', length: 255 })
     floor!: string;
 
-    @OneToOne(() => User, user => user.student)
+    @OneToOne(type => User, user => user.student, { eager: false })
     @JoinColumn() 
     user: User; 
 }

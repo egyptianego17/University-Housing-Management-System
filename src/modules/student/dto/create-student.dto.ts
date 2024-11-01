@@ -1,7 +1,8 @@
-import { IsString, IsEmail, IsStrongPassword, IsEnum, Length, IsDate, IsMobilePhone, IsOptional, IsNotEmpty, IsNumber, Min, Max, IsBoolean} from 'class-validator';
+import { IsString, Length, IsOptional, IsNumber, Min, Max, IsBoolean} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-
-export class CreateStudentDto {  
+import { CreateUserDto } from 'src/modules/user/dto/create-user.dto';
+export class CreateStudentDto extends CreateUserDto
+{
     @IsString()
     @Length(5, 100)
     address: string;
@@ -16,7 +17,6 @@ export class CreateStudentDto {
     grade: number;
 
     @IsNumber()
-    @IsOptional()
     @Min(0)
     @Max(100)
     lastYearAcademicGrade: number;

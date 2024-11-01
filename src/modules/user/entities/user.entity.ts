@@ -58,7 +58,7 @@ export class User {
   @Column({type: 'enum', enum: ['STUDENT', 'CATERING_MANAGER', 'ATTENDANCE_MANAGER', 'FLOOR_MANAGER', 'ADMIN']})
   role!: string;
 
-  @OneToOne(() => Student)
+  @OneToOne(type => Student, student => student.user, { eager: true })
   @JoinColumn({ name: 'student_fk', referencedColumnName: 'studentId' })
   student?: Student;
 

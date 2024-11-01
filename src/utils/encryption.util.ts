@@ -20,7 +20,6 @@ export class EncryptionUtil {
     encrypted += cipher.final('hex');
 
     const encryptedData = `${iv.toString('hex')}:${encrypted}`;
-    console.log('Encrypted Data:', encryptedData);  
     return encryptedData;
   }
 
