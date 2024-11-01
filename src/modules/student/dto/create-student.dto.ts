@@ -1,6 +1,6 @@
 import { IsString, Length, IsOptional, IsNumber, Min, Max, IsBoolean} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { CreateUserDto } from 'src/modules/user/dto/create-user.dto';
+import { CreateUserDto } from '../../user/dto/create-user.dto';
 export class CreateStudentDto extends CreateUserDto
 {
     @IsString()
@@ -30,9 +30,11 @@ export class CreateStudentDto extends CreateUserDto
     @Length(10, 255)
     studentIdImageUrl: string;
 
-    @IsNumber()
+    @IsString()
     room: string;
 
     @IsNumber()
-    floor: string;
+    @Min(0)
+    @Max(10)
+    floor: number;
 }

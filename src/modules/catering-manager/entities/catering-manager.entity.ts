@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { ManagedMeal } from 'src/modules/managed-meals/entities/managed-meal.entity';
+import { ManagedMeal } from '../../managed-meals/entities/managed-meal.entity';
 
 @Entity()
 export class CateringManager {

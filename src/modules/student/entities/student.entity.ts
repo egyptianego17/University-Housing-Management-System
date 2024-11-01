@@ -23,11 +23,11 @@ export class Student {
     @Column({ type: 'varchar', length: 255, nullable: true })
     studentIdImageUrl?: string;
 
-    @Column({ type: 'varchar', length: 255 })
+    @Column({ type: 'varchar', length: 10 })
     room!: string;
 
-    @Column({ type: 'varchar', length: 255 })
-    floor!: string;
+    @Column({ type: 'tinyint' })
+    floor!: number;
 
     @OneToOne(type => User, user => user.student, { eager: false })
     @JoinColumn() 

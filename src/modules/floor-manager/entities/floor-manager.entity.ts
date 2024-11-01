@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { ManagedFloor } from 'src/modules/managed-floors/entities/managed-floor.entity';
+import { ManagedFloor } from '../../managed-floors/entities/managed-floor.entity';
 
 @Entity()
 export class FloorManager {

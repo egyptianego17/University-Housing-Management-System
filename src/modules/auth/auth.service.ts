@@ -6,7 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { CreateStudentDto } from '../student/dto/create-student.dto';
 import { JwtService } from '@nestjs/jwt';
-import { EncryptionUtil } from 'src/utils/encryption.util';
+import { EncryptionUtil } from '../../utils/encryption.util';
 @Injectable()
 export class AuthService {
   constructor(

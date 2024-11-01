@@ -36,5 +36,7 @@ export class CreateUserAndStudentDto extends CreateUserDto {
   room: string;
 
   @IsNumber()
-  floor: string;
+  @Min(0)
+  @Max(10)
+  floor: number;
 }
