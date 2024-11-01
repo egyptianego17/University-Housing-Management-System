@@ -47,8 +47,11 @@ export class UserRepository extends Repository<User> {
       const student = new Student();
       student.user = savedUser; 
       Object.assign(student, createUserAndStudentDto); 
-      await queryRunner.manager.save(student);
+      const savedStudent = await queryRunner.manager.save(student);
       this.logger.debug(`Student entity saved for email: ${createUserAndStudentDto.email}`);
+
+      savedUser.student = savedStudent;
+      await queryRunner.manager.save(savedUser);
 
       await queryRunner.commitTransaction();
       this.logger.log(`User sign-up successful for email: ${createUserAndStudentDto.email}`);

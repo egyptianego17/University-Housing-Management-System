@@ -59,22 +59,22 @@ export class User {
   role!: string;
 
   @OneToOne(type => Student, student => student.user, { eager: true })
-  @JoinColumn({ name: 'student_fk', referencedColumnName: 'studentId' })
+  @JoinColumn()
   student?: Student;
 
   @OneToOne(() => CateringManager)
-  @JoinColumn({ name: 'cateringManager_fk', referencedColumnName: 'managerId' })
+  @JoinColumn()
   cateringManager?: CateringManager;
 
   @OneToOne(() => Attendance)
-  @JoinColumn({ name: 'attendance_fk', referencedColumnName: 'userId' })
+  @JoinColumn()
   attendance?: Attendance;
 
   @OneToOne(() => AttendanceManager)
-  @JoinColumn({ name: 'attendanceManager_fk', referencedColumnName: 'userId' })
+  @JoinColumn()
   attendanceManager?: AttendanceManager;
 
   @OneToOne(() => FloorManager)
-  @JoinColumn({ name: 'floorManager_fk', referencedColumnName: 'managerId' })
+  @JoinColumn()
   floorManager?: FloorManager;
 }
