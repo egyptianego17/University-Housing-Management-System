@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { ManagedFloor } from '../../managed-floors/entities/managed-floor.entity';
 
 @Entity()

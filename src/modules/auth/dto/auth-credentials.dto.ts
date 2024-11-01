@@ -1,9 +1,9 @@
 import { IsEmail, IsStrongPassword } from 'class-validator';
 
 export class AuthCredentialsDto {
-    @IsStrongPassword()
-    password: string;
+  @IsStrongPassword()
+  password: string;
 
-    @IsEmail()
-    email: string;
+  @IsEmail()
+  email: string;
 }

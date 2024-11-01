@@ -1,5 +1,12 @@
-import { IsString ,Length, IsOptional, IsNumber, Min, Max, IsBoolean } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import {
+  IsString,
+  Length,
+  IsOptional,
+  IsNumber,
+  Min,
+  Max,
+  IsBoolean,
+} from 'class-validator';
 
 import { CreateUserDto } from './create-user.dto';
 

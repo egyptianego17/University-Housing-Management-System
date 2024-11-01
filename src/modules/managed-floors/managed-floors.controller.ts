@@ -3,13 +3,9 @@ import {
   Get,
   Post,
   Body,
-  Patch,
-  Param,
-  Delete,
 } from '@nestjs/common';
 import { ManagedFloorsService } from './managed-floors.service';
 import { CreateManagedFloorDto } from './dto/create-managed-floor.dto';
-import { UpdateManagedFloorDto } from './dto/update-managed-floor.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @Controller('managed-floors')
@@ -26,6 +22,4 @@ export class ManagedFloorsController {
   findAll() {
     return this.managedFloorsService.findAll();
   }
-
-
 }

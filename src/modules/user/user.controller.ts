@@ -1,11 +1,4 @@
-import {
-  Controller,
-  Get,
-  ValidationPipe,
-  UseGuards,
-  Req,
-  Post
-} from '@nestjs/common';
+import { Controller, UseGuards, Post } from '@nestjs/common';
 import { GetUser } from '../auth/decorators/get-user.decorator';
 import { UserService } from './user.service';
 import { ApiTags } from '@nestjs/swagger';

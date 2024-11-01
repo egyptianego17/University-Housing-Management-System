@@ -1,40 +1,47 @@
-import { IsString, Length, IsOptional, IsNumber, Min, Max, IsBoolean} from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import {
+  IsString,
+  Length,
+  IsOptional,
+  IsNumber,
+  Min,
+  Max,
+  IsBoolean,
+} from 'class-validator';
 import { CreateUserDto } from '../../user/dto/create-user.dto';
-export class CreateStudentDto extends CreateUserDto
-{
-    @IsString()
-    @Length(5, 100)
-    address: string;
 
-    @IsString()
-    @Length(2, 25)
-    faculty: string;
+export class CreateStudentDto extends CreateUserDto {
+  @IsString()
+  @Length(5, 100)
+  address: string;
 
-    @IsNumber()
-    @Min(0)
-    @Max(100)
-    grade: number;
+  @IsString()
+  @Length(2, 25)
+  faculty: string;
 
-    @IsNumber()
-    @Min(0)
-    @Max(100)
-    lastYearAcademicGrade: number;
+  @IsNumber()
+  @Min(0)
+  @Max(100)
+  grade: number;
 
-    @IsBoolean()
-    @IsOptional()
-    disability: boolean;
+  @IsNumber()
+  @Min(0)
+  @Max(100)
+  lastYearAcademicGrade: number;
 
-    @IsOptional()
-    @IsString()
-    @Length(10, 255)
-    studentIdImageUrl: string;
+  @IsBoolean()
+  @IsOptional()
+  disability: boolean;
 
-    @IsString()
-    room: string;
+  @IsOptional()
+  @IsString()
+  @Length(10, 255)
+  studentIdImageUrl: string;
 
-    @IsNumber()
-    @Min(0)
-    @Max(10)
-    floor: number;
+  @IsString()
+  room: string;
+
+  @IsNumber()
+  @Min(0)
+  @Max(10)
+  floor: number;
 }

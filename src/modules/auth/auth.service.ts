@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { AuthCredentialsDto } from '../auth/dto/auth-credentials.dto'
-import { CreateUserAndStudentDto } from './../user/dto/create-student-dto'
-import { UserRepository } from './../user/user.repository'
-import { InjectRepository } from '@nestjs/typeorm'
+import { AuthCredentialsDto } from '../auth/dto/auth-credentials.dto';
+import { UserRepository } from './../user/user.repository';
+import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { CreateStudentDto } from '../student/dto/create-student.dto';
 import { JwtService } from '@nestjs/jwt';
@@ -15,7 +14,9 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async studentSignUp(createStudent: CreateUserDto & CreateStudentDto): Promise<string> {
+  async studentSignUp(
+    createStudent: CreateUserDto & CreateStudentDto,
+  ): Promise<string> {
     return await this.userRepository.studentSignUp(createStudent);
   }
 
@@ -25,5 +26,5 @@ export class AuthService {
     const accessToken = this.jwtService.sign({ encryptedData: payload });
 
     return accessToken;
-  } 
+  }
 }
