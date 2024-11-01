@@ -2,7 +2,7 @@ import * as crypto from 'crypto';
 
 export class EncryptionUtil {
   private static algorithm = 'aes-256-cbc';
-  private static secretKey = '12345678901234567890123456789012';
+  private static secretKey = process.env.ENCRYPTION_KEY;
 
   private static getValidatedSecretKey(): Buffer {
     if (!this.secretKey || this.secretKey.length !== 32) {
