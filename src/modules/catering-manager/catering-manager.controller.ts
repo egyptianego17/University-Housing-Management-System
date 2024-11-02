@@ -6,12 +6,13 @@ import {
   Patch,
   Param,
   Delete,
+  UsePipes,
 } from '@nestjs/common';
 import { CateringManagerService } from './catering-manager.service';
 import { CreateCateringManagerDto } from './dto/create-catering-manager.dto';
-import { UpdateCateringManagerDto } from './dto/update-catering-manager.dto';
 import { ApiTags } from '@nestjs/swagger';
-
+import { SignUpResponse } from '../auth/interfaces/signup-response.interface';
+import { ValidationPipe } from '@nestjs/common';
 @Controller('catering-manager')
 @ApiTags('CateringManager')
 export class CateringManagerController {
@@ -19,31 +20,10 @@ export class CateringManagerController {
     private readonly cateringManagerService: CateringManagerService,
   ) {}
 
-  @Post()
-  create(@Body() createCateringManagerDto: CreateCateringManagerDto) {
-    return this.cateringManagerService.create(createCateringManagerDto);
+  @Post('add/catering-manager')
+  @UsePipes(new ValidationPipe({ transform: true, whitelist: true }))
+  async addCateringManager(@Body() createCateringManagerDto: CreateCateringManagerDto ): Promise<SignUpResponse> {
+    return await this.cateringManagerService.addCateringManager(createCateringManagerDto);
   }
-
-  @Get()
-  findAll() {
-    return this.cateringManagerService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.cateringManagerService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateCateringManagerDto: UpdateCateringManagerDto,
-  ) {
-    return this.cateringManagerService.update(+id, updateCateringManagerDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.cateringManagerService.remove(+id);
-  }
+  
 }

@@ -5,7 +5,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { FloorManager } from '../../floor-manager/entities/floor-manager.entity';
+import { AttendanceAndFloorManager } from '../../attendance-and-floor-manager/entities/attendance-and-floor-manager.entity';
 @Entity()
 export class ManagedFloor {
   @PrimaryGeneratedColumn('increment', { type: 'bigint' })
@@ -14,7 +14,7 @@ export class ManagedFloor {
   @Column({ type: 'tinyint' })
   floorNumber!: number;
 
-  @ManyToOne(() => FloorManager, (floorManager) => floorManager.managedFloors)
+  @ManyToOne(() => AttendanceAndFloorManager, (attendanceAndFloorManager) => attendanceAndFloorManager.managedFloors)
   @JoinColumn({ name: 'managerId' })
-  floorManager!: FloorManager;
+  floorManager!: AttendanceAndFloorManager;
 }

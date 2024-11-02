@@ -14,7 +14,7 @@ export class UserController {
 
   @Post()
   @UseGuards(AuthGuard(), RolesGuard)
-  @Role('ADMIN')
+  @Role('ADMIN')  
   GetAsaadsDildo(@GetUser() user: User): string {
     console.log(user);
     return "Asaad's Dildo";

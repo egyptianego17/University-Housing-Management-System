@@ -8,8 +8,7 @@ import {
 import { Student } from '../../student/entities/student.entity';
 import { CateringManager } from '../../catering-manager/entities/catering-manager.entity';
 import { Attendance } from './../../attendance/entities/attendance.entity';
-import { AttendanceManager } from '../../attendance-manager/entities/attendance-manager.entity';
-import { FloorManager } from '../../floor-manager/entities/floor-manager.entity';
+import { AttendanceAndFloorManager } from '../../attendance-and-floor-manager/entities/attendance-and-floor-manager.entity';
 
 @Entity()
 export class User {
@@ -70,11 +69,7 @@ export class User {
   @JoinColumn()
   attendance?: Attendance;
 
-  @OneToOne(() => AttendanceManager)
+  @OneToOne(() => AttendanceAndFloorManager)
   @JoinColumn()
-  attendanceManager?: AttendanceManager;
-
-  @OneToOne(() => FloorManager)
-  @JoinColumn()
-  floorManager?: FloorManager;
+  attendanceAndFloorManager?: AttendanceAndFloorManager;
 }

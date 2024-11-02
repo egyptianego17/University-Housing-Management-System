@@ -12,6 +12,7 @@ import { ManagedMealsModule } from './modules/managed-meals/managed-meals.module
 import { NotificationModule } from './modules/notification/notification.module';
 import { typeOrmConfig } from './config/typeorm.config';
 import { AuthModule } from './modules/auth/auth.module';
+import { AttendanceAndFloorManagerModule } from './modules/attendance-and-floor-manager/attendance-and-floor-manager.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -29,6 +30,7 @@ import { AuthModule } from './modules/auth/auth.module';
     ManagedMealsModule,
     NotificationModule,
     AuthModule,
+    AttendanceAndFloorManagerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
