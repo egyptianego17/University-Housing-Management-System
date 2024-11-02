@@ -14,7 +14,10 @@ export class ManagedFloor {
   @Column({ type: 'tinyint' })
   floorNumber!: number;
 
-  @ManyToOne(() => AttendanceAndFloorManager, (attendanceAndFloorManager) => attendanceAndFloorManager.managedFloors)
+  @ManyToOne(
+    () => AttendanceAndFloorManager,
+    (attendanceAndFloorManager) => attendanceAndFloorManager.managedFloors,
+  )
   @JoinColumn({ name: 'managerId' })
-  floorManager!: AttendanceAndFloorManager;
+  attendanceAndFloorManager!: AttendanceAndFloorManager;
 }

@@ -6,7 +6,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { Student } from '../../student/entities/student.entity';
-import { FloorManager } from '../../floor-manager/entities/floor-manager.entity';
+import { AttendanceAndFloorManager } from '../../attendance-and-floor-manager/entities/attendance-and-floor-manager.entity';
 
 @Entity()
 export class Complaint {
@@ -17,9 +17,9 @@ export class Complaint {
   @JoinColumn({ name: 'studentId' })
   student!: Student;
 
-  @ManyToOne(() => FloorManager, { nullable: true })
+  @ManyToOne(() => AttendanceAndFloorManager, { nullable: true })
   @JoinColumn({ name: 'managerId' })
-  manager?: FloorManager;
+  manager?: AttendanceAndFloorManager;
 
   @Column({ type: 'datetime' })
   issueDate!: Date;
