@@ -32,6 +32,7 @@ export class AuthService {
       const user = await this.userRepository.login(authCredentialsDto);
       const payload = await EncryptionUtil.encryptPayload(user.email, user.role);
       const accessToken = this.jwtService.sign({ encryptedData: payload });
+      return { token: accessToken, success: true, role: user.role };
     } catch (error) {
       return { message: error.message || 'Login failed', success: false };
     }
