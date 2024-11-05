@@ -1,10 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { AuthCredentialsDto } from '../auth/dto/auth-credentials.dto'
-import { CreateUserAndStudentDto } from './../user/dto/create-student-dto'
-import { UserRepository } from './../user/user.repository'
-import { InjectRepository } from '@nestjs/typeorm'
-import { CreateUserDto } from '../user/dto/create-user.dto';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { AuthCredentialsDto } from '../auth/dto/auth-credentials.dto';
 import { CreateStudentDto } from '../student/dto/create-student.dto';
+import { UserRepository } from './../user/user.repository';
+import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { EncryptionUtil } from '../../utils/encryption.util';
 import { SignInResponse } from './interfaces/signin-response.interface';
@@ -23,7 +21,15 @@ export class AuthService {
       const message = await this.userRepository.studentSignUp(createStudent);
       return { message, success: true };
     } catch (error) {
-      return { message: error.message || 'Signup failed', success: false };
+      console.error('Signup error:', error);
+
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          message: error.message || 'Signup failed',
+        },
+        HttpStatus.BAD_REQUEST,
+      );
     }
   }
 
@@ -34,7 +40,15 @@ export class AuthService {
       const accessToken = this.jwtService.sign({ encryptedData: payload });
       return { token: accessToken, success: true, role: user.role };
     } catch (error) {
-      return { message: error.message || 'Login failed', success: false };
+      console.error('Login error:', error);
+
+      throw new HttpException(
+        {
+          status: HttpStatus.UNAUTHORIZED,
+          message: error.message || 'Login failed',
+        },
+        HttpStatus.UNAUTHORIZED,
+      );
     }
-  } 
+  }
 }
