@@ -17,10 +17,10 @@ export class Student {
   @Column({ type: 'varchar', length: 255 })
   faculty!: string;
 
-  @Column({ type: 'tinyint' })
+  @Column({ type: 'int' })
   grade!: number;
 
-  @Column({ type: 'tinyint', nullable: true })
+  @Column({ type: 'int', nullable: true })
   lastYearAcademicGrade?: number;
 
   @Column({ type: 'boolean', nullable: true })
@@ -29,10 +29,10 @@ export class Student {
   @Column({ type: 'varchar', length: 255, nullable: true })
   studentIdImageUrl?: string;
 
-  @Column({ type: 'tinyint' })
+  @Column({ type: 'int' })
   room!: number;
 
-  @Column({ type: 'tinyint' })
+  @Column({ type: 'int' })
   floor!: number;
 
   @OneToOne(() => User, (user) => user.student, { eager: false })

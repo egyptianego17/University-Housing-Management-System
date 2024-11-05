@@ -17,7 +17,7 @@ export class Announcement {
   @JoinColumn({ name: 'managerId' })
   managerId!: number;
 
-  @Column({ type: 'tinyint' })
+  @Column({ type: 'int' })
   floor!: number;
 
   @Column({ type: 'varchar', length: 255 })

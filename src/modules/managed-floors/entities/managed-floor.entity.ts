@@ -11,7 +11,7 @@ export class ManagedFloor {
   @PrimaryGeneratedColumn('increment', { type: 'bigint' })
   managerId!: number;
 
-  @Column({ type: 'tinyint' })
+  @Column({ type: 'int' })
   floorNumber!: number;
 
   @ManyToOne(
