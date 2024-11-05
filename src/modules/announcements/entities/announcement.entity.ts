@@ -26,7 +26,7 @@ export class Announcement {
   @Column({ type: 'text' })
   body!: string;
 
-  // @Column({ type: 'datetime' })
+  // @Column({ type: 'timestamp' })
   // date!: Date;
   @CreateDateColumn({ type: 'timestamp' })
   date: Date;

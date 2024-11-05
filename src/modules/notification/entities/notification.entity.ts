@@ -27,6 +27,6 @@ export class Notification {
   @Column({ type: 'text' })
   description!: string;
 
-  @Column({ type: 'datetime' })
+  @Column({ type: 'timestamp' })
   date!: Date;
 }

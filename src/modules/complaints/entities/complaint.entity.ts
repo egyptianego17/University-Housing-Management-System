@@ -21,7 +21,7 @@ export class Complaint {
   @JoinColumn({ name: 'managerId' })
   manager?: AttendanceAndFloorManager;
 
-  @Column({ type: 'datetime' })
+  @Column({ type: 'timestamp' })
   issueDate!: Date;
 
   @Column({ type: 'varchar', length: 255 })
@@ -33,7 +33,7 @@ export class Complaint {
   @Column({ type: 'text', nullable: true })
   response?: string;
 
-  @Column({ type: 'datetime' })
+  @Column({ type: 'timestamp' })
   responseDate!: Date;
 
   @Column({ type: 'boolean', default: false })
