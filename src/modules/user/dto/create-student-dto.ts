@@ -40,7 +40,7 @@ export class CreateUserAndStudentDto extends CreateUserDto {
   studentIdImageUrl: string;
 
   @IsNumber()
-  room: string;
+  room: number;
 
   @IsNumber()
   @Min(0)

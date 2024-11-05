@@ -33,7 +33,7 @@ import { StudentModule } from './modules/student/student.module';
     NotificationModule,
     AuthModule,
     AttendanceAndFloorManagerModule,
-    StudentModule
+    StudentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

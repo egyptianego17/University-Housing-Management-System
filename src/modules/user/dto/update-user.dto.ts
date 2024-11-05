@@ -49,5 +49,6 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   nationalIdImageUrl: string;
 
   @IsEnum(['MALE', 'FEMALE', 'HYBRID'])
+  @IsOptional()
   section: string;
 }

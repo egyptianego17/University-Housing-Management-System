@@ -23,7 +23,7 @@ const mockLoginResponse = {
   lastName: 'Doe',
   email: 'example@gmail.com',
   gender: 'MALE',
-  birthDate: new Date("2000-01-01"),
+  birthDate: new Date('2000-01-01'),
   mobileNumber: '01234567890',
   nationalId: '30208170102651',
   nationalIdImageUrl: 'https://example.com/image.jpg',
@@ -34,24 +34,24 @@ const mockLoginResponse = {
 };
 
 const mockStudent: CreateStudentDto & CreateUserDto = {
-  password: "abcdfe:D001",
-  firstName: "John",
-  middleName: "Michael",
-  lastName: "Doe",
-  email: "example@gmail.com",
-  gender: "MALE",
-  birthDate: new Date("2000-01-01"),
-  mobileNumber: "01234567890",
-  nationalId: "30308070102050",
-  nationalIdImageUrl: "https://example.com/image.jpg",
-  section: "HYBRID",
-  address: "123 Main St, City, Country",
-  faculty: "Engineering",
+  password: 'abcdfe:D001',
+  firstName: 'John',
+  middleName: 'Michael',
+  lastName: 'Doe',
+  email: 'example@gmail.com',
+  gender: 'MALE',
+  birthDate: new Date('2000-01-01'),
+  mobileNumber: '01234567890',
+  nationalId: '30308070102050',
+  nationalIdImageUrl: 'https://example.com/image.jpg',
+  section: 'HYBRID',
+  address: '123 Main St, City, Country',
+  faculty: 'Engineering',
   grade: 85,
   lastYearAcademicGrade: 90,
   disability: false,
-  studentIdImageUrl: "https://example.com/student_id.jpg",
-  room: "20B",
+  studentIdImageUrl: 'https://example.com/student_id.jpg',
+  room: 20,
   floor: 2,
 };
 
@@ -84,7 +84,10 @@ describe('AuthService', () => {
     expect(userRepository.studentSignUp).toHaveBeenCalled();
     expect(result).toEqual('User created successfully');
 
-    const token = await service.login({ email: mockStudent.email, password: mockStudent.password });
+    const token = await service.login({
+      email: mockStudent.email,
+      password: mockStudent.password,
+    });
     expect(userRepository.login).toHaveBeenCalled();
     expect(token).toEqual(expect.any(String));
   });

@@ -34,11 +34,12 @@ export class CreateStudentDto extends CreateUserDto {
 
   @IsOptional()
   @IsString()
-  @Length(10, 255)
   studentIdImageUrl: string;
 
-  @IsString()
-  room: string;
+  @IsNumber()
+  @Min(0)
+  @Max(1000)
+  room: number;
 
   @IsNumber()
   @Min(0)

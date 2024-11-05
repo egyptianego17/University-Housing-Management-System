@@ -29,8 +29,8 @@ export class Student {
   @Column({ type: 'varchar', length: 255, nullable: true })
   studentIdImageUrl?: string;
 
-  @Column({ type: 'varchar', length: 10 })
-  room!: string;
+  @Column({ type: 'tinyint' })
+  room!: number;
 
   @Column({ type: 'tinyint' })
   floor!: number;

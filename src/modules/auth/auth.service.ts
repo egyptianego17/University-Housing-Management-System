@@ -16,7 +16,9 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async studentSignUp(createStudent: CreateStudentDto): Promise<SignUpResponse> {
+  async studentSignUp(
+    createStudent: CreateStudentDto,
+  ): Promise<SignUpResponse> {
     try {
       const message = await this.userRepository.studentSignUp(createStudent);
       return { message, success: true };
@@ -36,7 +38,10 @@ export class AuthService {
   async login(authCredentialsDto: AuthCredentialsDto): Promise<SignInResponse> {
     try {
       const user = await this.userRepository.login(authCredentialsDto);
-      const payload = await EncryptionUtil.encryptPayload(user.email, user.role);
+      const payload = await EncryptionUtil.encryptPayload(
+        user.email,
+        user.role,
+      );
       const accessToken = this.jwtService.sign({ encryptedData: payload });
       return { token: accessToken, success: true, role: user.role };
     } catch (error) {

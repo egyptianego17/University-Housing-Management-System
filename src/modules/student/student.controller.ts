@@ -27,12 +27,6 @@ export class StudentController {
   private readonly logger = new Logger(StudentController.name);
   constructor(private readonly studentService: StudentService) {}
 
-  
-  // @Post()
-  // create(@Body() createStudentDto: CreateStudentDto) {
-  //   return this.studentService.create(createStudentDto);
-  // }
-
   @Get('getMyProfile')
   @UseGuards(AuthGuard(), RolesGuard)
   @Role('STUDENT')
@@ -45,26 +39,11 @@ export class StudentController {
       email: user.email,
       mobileNumber: user.mobileNumber,
       nationalId: user.nationalId,
-      faculty: user.student.faculty, 
+      faculty: user.student.faculty,
       room: user.student.room,
-      floor: user.student.floor, 
+      floor: user.student.floor,
     };
-  
-    return studentProfile; 
+
+    return studentProfile;
   }
-  
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.studentService.findOne(+id);
-  // }
-
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateStudentDto: UpdateStudentDto) {
-  //   return this.studentService.update(+id, updateStudentDto);
-  // }
-
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.studentService.remove(+id);
-  // }
 }

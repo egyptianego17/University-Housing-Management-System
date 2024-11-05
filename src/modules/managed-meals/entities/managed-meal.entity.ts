@@ -27,4 +27,3 @@ export class ManagedMeal {
   @JoinColumn({ name: 'managerId' })
   cateringManager!: CateringManager;
 }
-

@@ -17,10 +17,10 @@ export class User {
 
   @Column({ type: 'varchar', length: 255 })
   password!: string;
-  
+
   @Column({ type: 'varchar', length: 255 })
   salt!: string;
-  
+
   @Column({ type: 'varchar', length: 25 })
   firstName!: string;
 
@@ -33,13 +33,13 @@ export class User {
   @Column({ type: 'varchar', length: 255, unique: true })
   email!: string;
 
-  @Column({ type: 'enum', enum: ['MALE', 'FEMALE', 'HYBRID']})
+  @Column({ type: 'enum', enum: ['MALE', 'FEMALE', 'HYBRID'] })
   gender!: string;
 
   @Column({ type: 'date' })
   birthDate!: Date;
 
-  @Column({ type: 'varchar', length: 15 }) 
+  @Column({ type: 'varchar', length: 15 })
   mobileNumber!: string;
 
   @Column({ type: 'varchar', length: 14 })
@@ -49,15 +49,24 @@ export class User {
   nationalIdImageUrl?: string;
 
   @Column({ type: 'enum', enum: ['MALE', 'FEMALE', 'HYBRID'], nullable: true })
-  section!: string;
+  section?: string;
 
-  @Column({type: 'boolean', default: false})
+  @Column({ type: 'boolean', default: false })
   isActivated!: boolean;
 
-  @Column({type: 'enum', enum: ['STUDENT', 'CATERING_MANAGER', 'ATTENDANCE_MANAGER', 'FLOOR_MANAGER', 'ADMIN']})
+  @Column({
+    type: 'enum',
+    enum: [
+      'STUDENT',
+      'CATERING_MANAGER',
+      'ATTENDANCE_MANAGER',
+      'FLOOR_MANAGER',
+      'ADMIN',
+    ],
+  })
   role!: string;
 
-  @OneToOne(type => Student, student => student.user, { eager: true })
+  @OneToOne((type) => Student, (student) => student.user, { eager: true })
   @JoinColumn()
   student?: Student;
 

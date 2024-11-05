@@ -1,9 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { ManagedFloorsService } from './managed-floors.service';
 import { CreateManagedFloorDto } from './dto/create-managed-floor.dto';
 import { ApiTags } from '@nestjs/swagger';
