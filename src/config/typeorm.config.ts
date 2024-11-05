@@ -7,8 +7,10 @@ export class typeOrmConfig implements TypeOrmOptionsFactory {
   constructor(private configService: ConfigService) {}
 
   createTypeOrmOptions(): TypeOrmModuleOptions {
+    const isHosted = this.configService.get<string>('DB_HOSTED') === 'true';
+
     return {
-      type: process.env.DB_HOSTED === 'true' ? 'postgres' : 'mysql',
+      type: isHosted ? 'postgres' : 'mysql',
       host: this.configService.get<string>('DB_HOST'),
       port: this.configService.get<number>('DB_PORT'),
       username: this.configService.get<string>('DB_USER'),
@@ -17,6 +19,11 @@ export class typeOrmConfig implements TypeOrmOptionsFactory {
       entities: [__dirname + '/../**/*.entity.*'],
       synchronize: true,
       logging: true,
+      ...(isHosted && {
+        ssl: {
+          rejectUnauthorized: false, // Set to false if you're using self-signed certificates
+        },
+      }),
     };
   }
 }
