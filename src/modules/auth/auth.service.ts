@@ -42,7 +42,13 @@ export class AuthService {
         user.email,
         user.role,
       );
-      const accessToken = this.jwtService.sign({ encryptedData: payload });
+      const accessToken = this.jwtService.sign(
+        { encryptedData: payload },
+        {
+          expiresIn: process.env.JWT_EXPIRES_IN || '1h',
+        },
+      );
+
       return { token: accessToken, success: true, role: user.role };
     } catch (error) {
       console.error('Login error:', error);

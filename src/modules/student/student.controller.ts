@@ -1,18 +1,5 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  UseGuards,
-  Logger,
-} from '@nestjs/common';
-
+import { Controller, Get, Logger, UseGuards } from '@nestjs/common';
 import { StudentService } from './student.service';
-import { CreateStudentDto } from './dto/create-student.dto';
-import { UpdateStudentDto } from './dto/update-student.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { Role } from '../auth/decorators/role.decorator';
@@ -20,11 +7,13 @@ import { RolesGuard } from '../auth/guards/roles.guard';
 import { StudentProfileInterface } from './interface/studentProfile.interface';
 import { User } from '../user/entities/user.entity';
 import { GetUser } from '../auth/decorators/get-user.decorator';
+import { EncryptionUtil } from '../../utils/encryption.util';
 
 @Controller('student')
 @ApiTags('Student')
 export class StudentController {
   private readonly logger = new Logger(StudentController.name);
+
   constructor(private readonly studentService: StudentService) {}
 
   @Get('getMyProfile')
@@ -45,5 +34,15 @@ export class StudentController {
     };
 
     return studentProfile;
+  }
+
+  @Get('getQrCode')
+  @UseGuards(AuthGuard(), RolesGuard)
+  @Role('STUDENT')
+  async getQrCode(@GetUser() user: User): Promise<string> {
+    this.logger.log(`User ${user.email} is getting his QR code`);
+    this.logger.log(`User ID: ${user.id}`);
+    this.logger.log(`User ID encrypted: ${await EncryptionUtil.encryptId(user.id)}`);
+    return await EncryptionUtil.encryptId(user.id);
   }
 }

@@ -66,7 +66,7 @@ export class User {
   })
   role!: string;
 
-  @OneToOne((type) => Student, (student) => student.user, { eager: true })
+  @OneToOne(() => Student, (student) => student.user, { eager: true })
   @JoinColumn()
   student?: Student;
 

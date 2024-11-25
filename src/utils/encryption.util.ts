@@ -49,4 +49,37 @@ export class EncryptionUtil {
 
     return JSON.parse(decrypted);
   }
+  static async encryptId(id: number): Promise<string> {
+    const payload = JSON.stringify({ id });
+    const iv = crypto.randomBytes(16);
+    const cipher = crypto.createCipheriv(
+      this.algorithm,
+      this.getValidatedSecretKey(),
+      iv,
+    );
+
+    let encrypted = cipher.update(payload, 'utf-8', 'hex');
+    encrypted += cipher.final('hex');
+
+    return `${iv.toString('hex')}:${encrypted}`;
+  }
+  static async decryptId(encryptedId: string): Promise<number> {
+    const [ivHex, encrypted] = encryptedId.split(':');
+
+    if (!ivHex || ivHex.length !== 32 || !encrypted) {
+      throw new Error('Invalid encrypted payload format or missing IV');
+    }
+
+    const iv = Buffer.from(ivHex, 'hex');
+    const decipher = crypto.createDecipheriv(
+      this.algorithm,
+      this.getValidatedSecretKey(),
+      iv,
+    );
+
+    let decrypted = decipher.update(encrypted, 'hex', 'utf-8');
+    decrypted += decipher.final('utf-8');
+
+    return JSON.parse(decrypted).id;
+  }
 }
