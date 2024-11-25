@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsBoolean, IsDate, IsNumber } from 'class-validator';
+import { IsBoolean, IsDate, IsNumber, IsOptional } from 'class-validator';
 
 export class CreateAttendanceManagerDto {
   @IsNumber()
@@ -10,11 +10,14 @@ export class CreateAttendanceManagerDto {
   date: Date;
 
   @IsBoolean()
+  @IsOptional({ always: true })
   tookBreakfast?: boolean;
 
   @IsBoolean()
+  @IsOptional({ always: true })
   tookLunch?: boolean;
 
   @IsBoolean()
+  @IsOptional({ always: true })
   tookDinner?: boolean;
 }
