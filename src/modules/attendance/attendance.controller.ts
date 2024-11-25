@@ -6,19 +6,29 @@ import {
   Patch,
   Param,
   Delete,
+  BadRequestException,
 } from '@nestjs/common';
 import { AttendanceService } from './attendance.service';
 import { CreateAttendanceManagerDto } from './dto/create-attendance.dto';
 import { UpdateAttendanceDto } from './dto/update-attendance.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { StudentService } from '../student/student.service';
 
 @Controller('attendance')
 @ApiTags('Attendance')
 export class AttendanceController {
-  constructor(private readonly attendanceService: AttendanceService) {}
+  constructor(
+    private readonly attendanceService: AttendanceService,
+    private readonly studentService: StudentService,
+  ) {}
 
   @Post()
-  create(@Body() createAttendanceDto: CreateAttendanceManagerDto) {
+  async create(@Body() createAttendanceDto: CreateAttendanceManagerDto) {
+    const { userId } = createAttendanceDto;
+    const student = await this.studentService.findOne(userId);
+    if (!student) {
+      throw new BadRequestException(`Student with id ${userId} not found`);
+    }
     return this.attendanceService.create(createAttendanceDto);
   }
 
