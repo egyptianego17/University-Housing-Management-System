@@ -6,8 +6,8 @@ import { EncryptionUtil } from 'src/utils/encryption.util';
 export class DecryptUserIdMiddleware implements NestMiddleware {
   async use(req: Request, res: Response, next: NextFunction) {
     try {
-      req.body.userId = await EncryptionUtil.decryptId(req.body.userId);
-      next();
+      req.body.userId = Number(await EncryptionUtil.decryptId(req.body.userId));
+      return next();
     } catch (error) {
       return res.status(400).json({ error: 'Invalid userId' });
     }
