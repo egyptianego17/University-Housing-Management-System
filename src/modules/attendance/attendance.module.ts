@@ -6,9 +6,10 @@ import { Attendance } from './entities/attendance.entity';
 import { Student } from '../student/entities/student.entity';
 import { StudentService } from '../student/student.service';
 import { DecryptUserIdMiddleware } from './decrypt-user-id/decrypt-user-id.middleware';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Attendance, Student])],
+  imports: [TypeOrmModule.forFeature([Attendance, Student]), AuthModule],
   controllers: [AttendanceController],
   providers: [AttendanceService, StudentService],
 })
