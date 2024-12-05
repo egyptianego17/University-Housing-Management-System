@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ConflictException,
   HttpException,
   HttpStatus,
   Injectable,
@@ -24,7 +25,7 @@ export class AttendanceService {
       return await this.repo.save(attendance);
     } catch (err) {
       if (err.code === 'ER_DUP_ENTRY') {
-        throw new BadRequestException(
+        throw new ConflictException(
           'Attendance record already exists for this user and date.',
         );
       }
