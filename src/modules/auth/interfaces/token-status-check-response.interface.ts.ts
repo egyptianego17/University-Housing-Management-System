@@ -1,4 +1,5 @@
 export interface tokenStatusCheckResponse {
   status: string;
-  firstName?: string;
+  firstName: string;
+  role: string;
 }

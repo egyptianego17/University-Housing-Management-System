@@ -43,6 +43,10 @@ export class AuthController {
   @Get('token/status')
   @UseGuards(AuthGuard())
   async checkToken(@GetUser() user: User): Promise<tokenStatusCheckResponse> {
-    return { status: 'Token is valid', firstName: user.firstName };
+    return {
+      status: 'Token is valid',
+      firstName: user.firstName,
+      role: user.role,
+    };
   }
 }
