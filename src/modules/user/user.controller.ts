@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Post } from '@nestjs/common';
+import { Controller, UseGuards, Post, Get } from '@nestjs/common';
 import { GetUser } from '../auth/decorators/get-user.decorator';
 import { UserService } from './user.service';
 import { ApiTags } from '@nestjs/swagger';
@@ -17,5 +17,11 @@ export class UserController {
   @Role('STUDENT')
   GetAsaadsDildo(@GetUser() user: User): string {
     return "Asaad's Dildo";
+  }
+
+  @Get('getRole')
+  @UseGuards(AuthGuard(), RolesGuard)
+  GetRole(@GetUser() user: User): string {
+    return user.role;
   }
 }
