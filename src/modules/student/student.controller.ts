@@ -18,7 +18,7 @@ export class StudentController {
 
   @Get('getMyProfile')
   @UseGuards(AuthGuard(), RolesGuard)
-  @Role('STUDENT')
+  @Role('STUDENT', 'ATTENDANCE_MANAGER')
   async getMyProfile(@GetUser() user: User): Promise<StudentProfileInterface> {
     this.logger.log(`User ${user.email} is getting his profile`);
     const studentProfile: StudentProfileInterface = {
@@ -42,7 +42,9 @@ export class StudentController {
   async getQrCode(@GetUser() user: User): Promise<string> {
     this.logger.log(`User ${user.email} is getting his QR code`);
     this.logger.log(`User ID: ${user.id}`);
-    this.logger.log(`User ID encrypted: ${await EncryptionUtil.encryptId(user.id)}`);
+    this.logger.log(
+      `User ID encrypted: ${await EncryptionUtil.encryptId(user.id)}`,
+    );
     return await EncryptionUtil.encryptId(user.id);
   }
 }
