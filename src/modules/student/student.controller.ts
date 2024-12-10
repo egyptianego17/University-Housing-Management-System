@@ -1,4 +1,11 @@
-import { Controller, Get, Logger, UseGuards } from '@nestjs/common';
+import {
+  BadRequestException,
+  Controller,
+  Get,
+  Logger,
+  Param,
+  UseGuards,
+} from '@nestjs/common';
 import { StudentService } from './student.service';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
@@ -18,7 +25,7 @@ export class StudentController {
 
   @Get('getMyProfile')
   @UseGuards(AuthGuard(), RolesGuard)
-  @Role('STUDENT', 'ATTENDANCE_MANAGER')
+  @Role('STUDENT')
   async getMyProfile(@GetUser() user: User): Promise<StudentProfileInterface> {
     this.logger.log(`User ${user.email} is getting his profile`);
     const studentProfile: StudentProfileInterface = {
@@ -46,5 +53,33 @@ export class StudentController {
       `User ID encrypted: ${await EncryptionUtil.encryptId(user.id)}`,
     );
     return await EncryptionUtil.encryptId(user.id);
+  }
+
+  @Get(':id')
+  @UseGuards(AuthGuard(), RolesGuard)
+  @Role('STUDENT')
+  async getStudentDetailsFoeAttendance(
+    @Param('id') id: string,
+    @GetUser() user: User,
+  ): Promise<StudentProfileInterface> {
+    try {
+      const studentId = Number(await EncryptionUtil.decryptId(id));
+      const { faculty, room, floor } =
+        await this.studentService.findOne(studentId);
+      const studentProfile: StudentProfileInterface = {
+        firstName: user.firstName,
+        middleName: user.middleName,
+        lastName: user.lastName,
+        email: user.email,
+        mobileNumber: user.mobileNumber,
+        nationalId: user.nationalId,
+        faculty,
+        room,
+        floor,
+      };
+      return studentProfile;
+    } catch (error) {
+      throw new BadRequestException('Invalid student id');
+    }
   }
 }
