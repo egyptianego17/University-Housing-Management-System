@@ -1,4 +1,11 @@
-import { Controller, Get, Logger, UseGuards } from '@nestjs/common';
+import {
+  BadRequestException,
+  Controller,
+  Get,
+  Logger,
+  Param,
+  UseGuards,
+} from '@nestjs/common';
 import { StudentService } from './student.service';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
@@ -15,6 +22,36 @@ export class StudentController {
   private readonly logger = new Logger(StudentController.name);
 
   constructor(private readonly studentService: StudentService) {}
+
+  @Get(':id')
+  @UseGuards(AuthGuard(), RolesGuard)
+  @Role('ATTENDANCE_MANAGER')
+  async getStudentData(
+    @Param('id') id: string,
+    @GetUser() user: User,
+  ): Promise<StudentProfileInterface> {
+    try {
+      const studentId = Number(await EncryptionUtil.decryptId(id));
+
+      const { faculty, room, floor } =
+        await this.studentService.findOne(studentId);
+
+      const studentProfile: StudentProfileInterface = {
+        firstName: user.firstName,
+        middleName: user.middleName,
+        lastName: user.lastName,
+        email: user.email,
+        mobileNumber: user.mobileNumber,
+        nationalId: user.nationalId,
+        faculty,
+        room,
+        floor,
+      };
+      return studentProfile;
+    } catch (error) {
+      throw new BadRequestException('Invalid student id');
+    }
+  }
 
   @Get('getMyProfile')
   @UseGuards(AuthGuard(), RolesGuard)
@@ -42,7 +79,9 @@ export class StudentController {
   async getQrCode(@GetUser() user: User): Promise<string> {
     this.logger.log(`User ${user.email} is getting his QR code`);
     this.logger.log(`User ID: ${user.id}`);
-    this.logger.log(`User ID encrypted: ${await EncryptionUtil.encryptId(user.id)}`);
+    this.logger.log(
+      `User ID encrypted: ${await EncryptionUtil.encryptId(user.id)}`,
+    );
     return await EncryptionUtil.encryptId(user.id);
   }
 }
