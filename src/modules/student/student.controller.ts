@@ -57,7 +57,7 @@ export class StudentController {
 
   @Get(':id')
   @UseGuards(AuthGuard(), RolesGuard)
-  @Role('STUDENT')
+  @Role('ATTENDANCE_MANAGER')
   async getStudentDetailsFoeAttendance(
     @Param('id') id: string,
     @GetUser() user: User,

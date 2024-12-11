@@ -17,6 +17,7 @@ import { StudentService } from '../student/student.service';
 import { Role } from '../auth/decorators/role.decorator';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { AuthGuard } from '@nestjs/passport';
+import { EncryptionUtil } from 'src/utils/encryption.util';
 
 @Controller('attendance')
 @ApiTags('Attendance')
@@ -48,9 +49,21 @@ export class AttendanceController {
   @Get(':userId/:date') // date must be formatted as: 'yyyy-mm-dd'
   @UseGuards(AuthGuard(), RolesGuard)
   @Role('ATTENDANCE_MANAGER')
-  findOne(@Param('userId') userId: string, @Param('date') date: string) {
+  async findOne(@Param('userId') userId: string, @Param('date') date: string) {
+    const id = await EncryptionUtil.decryptId(userId);
     const parsedDate = new Date(date);
-    return this.attendanceService.findOne(parseInt(userId), parsedDate);
+    const attendance = await this.attendanceService.findOne(id, parsedDate);
+    if (!attendance) {
+      return {
+        status: 'ABSENT',
+        date: parsedDate,
+        userId: id,
+        tookBreakfast: false,
+        tookDinner: false,
+        tookLunch: false,
+      };
+    }
+    return { status: 'PRESENT', ...attendance };
   }
 
   @Patch(':userId/:date')

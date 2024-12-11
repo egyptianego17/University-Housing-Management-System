@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   ConflictException,
   HttpException,
   HttpStatus,
@@ -48,9 +47,6 @@ export class AttendanceService {
 
   async findOne(userId: number, date: Date) {
     const attendance = await this.repo.findOne({ where: { userId, date } });
-    if (!attendance) {
-      throw new NotFoundException(`Attendance record not found`);
-    }
     return attendance;
   }
 
